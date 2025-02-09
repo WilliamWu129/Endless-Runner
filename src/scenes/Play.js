@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
     preload() {
         this.load.image("airplane", "./assets/airplane.png")
         this.load.image("rocket", "./assets/rocket.png")
+        this.load.image("shield", "./assets/shield.png")
         this.load.image("background", "./assets/background.png")
 
     }
@@ -36,6 +37,20 @@ class Play extends Phaser.Scene {
             callback: this.spawnWave,
             callbackScope: this,
             loop: true, 
+        });
+
+        this.shields = []; // Array to store shields
+
+        this.time.addEvent({
+            delay: 10000, // Spawn shield every 10 seconds
+            callback: this.spawnShield,
+            callbackScope: this,
+            loop: true,
+        });
+
+        this.shieldText = this.add.text(20, 20, "Shield: NONE", {
+            fontSize: "24px",
+            fill: "#ffffff",
         });
 
 
@@ -70,7 +85,15 @@ class Play extends Phaser.Scene {
     handleCollision(airplane, rocket) {
         rocket.destroy(); // Remove rocket
         this.rockets = this.rockets.filter(r => r !== rocket)
-        console.log("Collision detected! Rocket destroyed.");
+        
+        if (airplane.hasShield) {
+            airplane.hasShield = false; // Remove shield
+            console.log("Shield absorbed the hit!")
+            this.shieldText.setText("Shield: NONE")
+        } else {
+            console.log("Player hit! Restarting game...");
+            this.scene.restart(); // Restart game on hit
+        }
     }
 
     spawnWave() {
@@ -80,14 +103,14 @@ class Play extends Phaser.Scene {
         this.rockets = [];
 
         for (let i = 0; i < 3; i++) {
-            let newRocket = new Rocket(this, "rocket");
-            newRocket.y = this.getNonOverlappingY();
+            let newRocket = new Rocket(this, "rocket")
+            newRocket.y = this.getNonOverlappingY()
             
-            this.physics.add.existing(newRocket);
-            this.rockets.push(newRocket);
+            this.physics.add.existing(newRocket)
+            this.rockets.push(newRocket)
 
             // Collision detection
-            this.physics.add.overlap(this.airplane, newRocket, this.handleCollision, null, this);
+            this.physics.add.overlap(this.airplane, newRocket, this.handleCollision, null, this)
         }
     }
 
@@ -102,6 +125,22 @@ class Play extends Phaser.Scene {
         } while (this.rockets.some((r) => Math.abs(r.y - newY) < 50) && attempts < maxAttempts);
 
         return newY;
+    }
+
+    spawnShield() {
+        let newShield = new Shield(this, "shield")
+        this.shields.push(newShield)
+    
+        // Enable physics and add collision
+        this.physics.add.existing(newShield)
+        this.physics.add.overlap(this.airplane, newShield, this.collectShield, null, this)
+    }
+
+    collectShield(airplane, shield) {
+        airplane.collectShield() // Activate shield
+        shield.destroy() // Remove collected shield
+
+        this.shieldText.setText("Shield: ACTIVE")
     }
 }
 
