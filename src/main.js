@@ -19,8 +19,3 @@ let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
 
 
-/*
-Include in-game instructions using text or other means 
-
-
-*/

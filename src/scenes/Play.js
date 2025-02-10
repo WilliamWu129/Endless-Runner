@@ -4,7 +4,12 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("airplane", "./assets/airplane.png")
+        
+        this.load.spritesheet("airplane", "./assets/Airplane.png", {
+            frameWidth: 40,
+            frameHeight: 40  
+        });
+
         this.load.image("rocket", "./assets/rocket.png")
         this.load.image("shield", "./assets/shield.png")
         this.load.image("background", "./assets/background.png")
@@ -33,13 +38,37 @@ class Play extends Phaser.Scene {
         this.xtraLifeSound = this.sound.add("xtraLife")
 
 
-        // Create airplane 
-        this.airplane = new Airplane(
-            this,
-            50, 
-            this.sys.game.config.height / 2, 
-            "airplane"
-        );
+
+
+        if (!this.anims.exists("fly-straight")) {
+            this.anims.create({
+                key: "fly-straight",
+                frames: this.anims.generateFrameNumbers("airplane", { start: 0, end: 2 }),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+    
+        if (!this.anims.exists("fly-up")) {
+            this.anims.create({
+                key: "fly-up",
+                frames: [{ key: "airplane", frame: 3 }],
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+    
+        if (!this.anims.exists("fly-down")) {
+            this.anims.create({
+                key: "fly-down",
+                frames: [{ key: "airplane", frame: 4 }],
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+
+
+        this.airplane = new Airplane(this, 50, this.sys.game.config.height / 2)
 
         this.rockets = []
 
@@ -119,7 +148,9 @@ class Play extends Phaser.Scene {
     update() {
         this.background.tilePositionX += 2 //scrolling background
         
-        this.airplane.update(); 
+        if (this.airplane) {
+            this.airplane.update();
+        }
 
         this.rockets.forEach((rocket) => {
             rocket.update()
