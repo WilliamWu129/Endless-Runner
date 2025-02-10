@@ -21,6 +21,6 @@ let borderPadding = borderUISize / 3
 
 /*
 Include in-game instructions using text or other means 
-Simulate scrolling with a tileSprite
+
 
 */

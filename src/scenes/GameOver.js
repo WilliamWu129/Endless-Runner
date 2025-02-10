@@ -3,15 +3,43 @@ class GameOver extends Phaser.Scene {
         super("gameOverScene");
     }
 
+    init(data){
+        this.score = data.score || 0;
+        this.highScore = data.highScore || 0;
+    }
+
     create() {
         this.add.text(
             this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2 - 50,
+            this.sys.game.config.height / 2 - 150,
             "Game Over",
             {
                 fontSize: "32px",
                 fill: "#ff0000",
                 fontFamily: "Arial",
+            }
+        ).setOrigin(0.5);
+
+        //displaying score
+
+        this.add.text(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2 - 100,
+            `Your Score: ${this.score}`,
+            {
+                fontSize: "24px",
+                fill: "#ffffff",
+            }
+        ).setOrigin(0.5);
+
+        // displaying high score
+        this.add.text(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2 - 50,
+            `High Score: ${this.highScore}`,
+            {
+                fontSize: "24px",
+                fill: "#ffffff",
             }
         ).setOrigin(0.5);
 

@@ -17,8 +17,14 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.add.tileSprite(0, 0, this.sys.game.config.width, this.sys.game.config.height, "background").setOrigin(0, 0);
-
+        this.background = this.add.tileSprite(
+            0,
+            0,
+            this.sys.game.config.width,
+            this.sys.game.config.height,
+            "background"
+        ).setOrigin(0, 0);
+    
 
         // Load sounds
         this.deathSound = this.sound.add("death")
@@ -82,9 +88,37 @@ class Play extends Phaser.Scene {
             this.physics.add.overlap(this.airplane, rocket, this.handleCollision, null, this);
         });
 
+
+
+
+        //scoring
+        this.score = 0;
+        this.highScore = localStorage.getItem("highScore") || 0;
+
+        this.scoreText = this.add.text(
+            this.sys.game.config.width - 20,
+            20,
+            `Score: 0`,
+            {
+                fontSize: "24px",
+                fill: "#ffffff",
+                align: "right",
+            }
+        ).setOrigin(1, 0);
+    
+        // Timer to increment score every second
+        this.time.addEvent({
+            delay: 1000, // 1 second
+            callback: this.updateScore,
+            callbackScope: this,
+            loop: true,
+        });
+
     }
 
     update() {
+        this.background.tilePositionX += 2 //scrolling background
+        
         this.airplane.update(); 
 
         this.rockets.forEach((rocket) => {
@@ -106,8 +140,11 @@ class Play extends Phaser.Scene {
             this.explosionSound.play()
         } else {
             this.deathSound.play()
-            console.log("Player hit! Showing game over menu...");
-            this.scene.start("gameOverScene")
+            if (this.score > this.highScore) {
+                this.highScore = this.score
+                localStorage.setItem("highScore", this.highScore) // Save to local storage
+            }
+            this.scene.start("gameOverScene", { score: this.score, highScore: this.highScore })
         }
     }
 
@@ -158,6 +195,12 @@ class Play extends Phaser.Scene {
         this.xtraLifeSound.play()
 
         this.shieldText.setText("Shield: ACTIVE")
+    }
+
+
+    updateScore() {
+        this.score++ // Increment score
+        this.scoreText.setText(`Score: ${this.score}`)
     }
 }
 
