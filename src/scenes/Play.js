@@ -40,6 +40,8 @@ class Play extends Phaser.Scene {
 
 
 
+
+
         if (!this.anims.exists("fly-straight")) {
             this.anims.create({
                 key: "fly-straight",

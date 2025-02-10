@@ -14,6 +14,21 @@ class Menu extends Phaser.Scene {
         .setOrigin(0, 0)
         .setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
 
+        let titleConfig = {
+            fontFamily: "Courier",
+            fontSize: "40px", 
+            backgroundColor: "#F3B141",
+            color: "#843605",
+            align: "center",
+            padding: {
+                top: 10,
+                bottom: 10,
+            },
+            fixedWidth: 0,
+        };
+
+
+
         let menuConfig = {
             fontFamily: "Courier",
             fontSize: "28px",
@@ -30,8 +45,8 @@ class Menu extends Phaser.Scene {
         this.add.text(
             this.sys.game.config.width / 2,
             this.sys.game.config.height / 2 - 50,
-            "Jetpack Airplane",
-            menuConfig
+            "Escape Through The Skies",
+            titleConfig
         ).setOrigin(0.5);
         
 

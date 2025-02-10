@@ -9,7 +9,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         this.moveSpeed = 3; // Speed 
         this.setScale(0.2) // Scale 
-        this.setSize(this.width * 0.0005, this.height * 0.0005) // hitbox
+        this.setSize(this.width * 0.5, this.height * 0.5) // hitbox
+        
 
         this.setFlipX(true)
 

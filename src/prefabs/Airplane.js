@@ -20,7 +20,8 @@ class Airplane extends Phaser.GameObjects.Sprite {
 
         //size
         this.setScale(2)
-        this.setSize(this.width * 0.5, this.height * 0.5)
+        this.setSize(this.width * .5, this.height * 0.5)
+        this.body.setOffset(this.width * 0.00005, this.height * 0.250);
         
     }
 
