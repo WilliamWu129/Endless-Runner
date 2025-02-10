@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         
-        this.load.spritesheet("airplane", "./assets/Airplane.png", {
+        this.load.spritesheet("airplane", "./assets/airplane.png", {
             frameWidth: 40,
             frameHeight: 40  
         });
