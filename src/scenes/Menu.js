@@ -4,7 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("background", "./assets/background.png");
+        this.load.image("background", "./assets/background.png")
+        this.load.audio("bgm", "./assets/BGM.mp3")
     }
 
     create() {
@@ -31,12 +32,30 @@ class Menu extends Phaser.Scene {
             menuConfig
         ).setOrigin(0.5);
         
+
+
+
         this.add.text(
             this.sys.game.config.width / 2,
             this.sys.game.config.height / 2,
+            "Arrow keys to move up and Down",
+            
+            menuConfig
+        ).setOrigin(0.5);
+
+        this.add.text(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 1.7,
             "Press ENTER to Start",
             menuConfig
         ).setOrigin(0.5);
+
+        if (!this.sound.get("bgm")) {
+            this.bgm = this.sound.add("bgm", { loop: true, volume: 0.1 }) // Loop the music
+            this.bgm.play()
+        }
+
+
 
         //  Enter key
         this.input.keyboard.on("keydown-ENTER", () => {

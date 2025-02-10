@@ -9,10 +9,23 @@ class Play extends Phaser.Scene {
         this.load.image("shield", "./assets/shield.png")
         this.load.image("background", "./assets/background.png")
 
+        this.load.audio("death", "./assets/death.wav")
+        this.load.audio("explosion", "./assets/explosion.wav")
+        this.load.audio("rocketSpawn", "./assets/rocketSpawn.wav")
+        this.load.audio("xtraLife", "./assets/xtraLife.wav")
+
     }
 
     create() {
         this.add.tileSprite(0, 0, this.sys.game.config.width, this.sys.game.config.height, "background").setOrigin(0, 0);
+
+
+        // Load sounds
+        this.deathSound = this.sound.add("death")
+        this.explosionSound = this.sound.add("explosion")
+        this.rocketSpawnSound = this.sound.add("rocketSpawn")
+        this.xtraLifeSound = this.sound.add("xtraLife")
+
 
         // Create airplane 
         this.airplane = new Airplane(
@@ -90,14 +103,17 @@ class Play extends Phaser.Scene {
             airplane.hasShield = false; // Remove shield
             console.log("Shield absorbed the hit!")
             this.shieldText.setText("Shield: NONE")
+            this.explosionSound.play()
         } else {
-            console.log("Player hit! Restarting game...");
-            this.scene.restart(); // Restart game on hit
+            this.deathSound.play()
+            console.log("Player hit! Showing game over menu...");
+            this.scene.start("gameOverScene")
         }
     }
 
     spawnWave() {
         console.log("Spawning new wave...");
+        this.rocketSpawnSound.play()
 
         this.rockets.forEach((rocket) => rocket.destroy());
         this.rockets = [];
@@ -139,6 +155,7 @@ class Play extends Phaser.Scene {
     collectShield(airplane, shield) {
         airplane.collectShield() // Activate shield
         shield.destroy() // Remove collected shield
+        this.xtraLifeSound.play()
 
         this.shieldText.setText("Shield: ACTIVE")
     }

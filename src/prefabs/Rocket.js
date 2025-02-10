@@ -8,8 +8,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
 
         this.moveSpeed = 3; // Speed 
-        this.setScale(0.2); // Scale 
-        this.setSize(this.width * 0.005, this.height * 0.005) // hitbox
+        this.setScale(0.2) // Scale 
+        this.setSize(this.width * 0.0005, this.height * 0.0005) // hitbox
 
         this.setFlipX(true)
 
@@ -31,5 +31,6 @@ class Rocket extends Phaser.GameObjects.Sprite {
         if (!this.scene) return
         this.x = this.scene.sys.game.config.width + 50 // Respawn on the right
         this.y = Phaser.Math.Between(50, this.scene.sys.game.config.height - 50) // Random Y-position
+        this.scene.rocketSpawnSound.play()
     }
 }

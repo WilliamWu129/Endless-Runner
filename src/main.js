@@ -10,10 +10,17 @@ let config = {
             deubg: false
         }
     },
-    scene: [Menu, Play]
+    scene: [Menu, Play, GameOver, Credits]
 }
 
 
 let game = new Phaser.Game(config)
 let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
+
+
+/*
+Include in-game instructions using text or other means 
+Simulate scrolling with a tileSprite
+
+*/
