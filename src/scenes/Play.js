@@ -41,6 +41,14 @@ class Play extends Phaser.Scene {
 
 
 
+/*
+ this is the programming technique I learned/used for animations of the airplane.
+instead of manually switching frames I used Phaser's animationmanager
+I created an animation called fly-straight and played 0,1,2 in order in loop 
+indefinetly -1. Also got rid of bugs as calling fly-up or fly-down
+every frame causes it to spasm as it triggers as long as you hold it
+(looked smoother)
+ */
 
         if (!this.anims.exists("fly-straight")) {
             this.anims.create({

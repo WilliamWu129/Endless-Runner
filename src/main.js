@@ -8,7 +8,8 @@ so it looked pretty good for that, music I just searched online for free songs a
 across something that fit a intense escape format 
 For something interesting I thought of endless runner games and came across jetpack Joyride and took 
 inspiration from it, used couple of in class assignments as a basis
-reinforced my learning from that.  
+reinforced my learning from that. 
+Used Stack-Based Animation Handling for switching frames, uses frame batching to loop sequences of frames. 
 */
 
 let config = {
