@@ -83,7 +83,7 @@ class Play extends Phaser.Scene {
         });
         
         this.time.addEvent({
-            delay: 5000, 
+            delay: 2500, 
             callback: this.spawnWave,
             callbackScope: this,
             loop: true, 

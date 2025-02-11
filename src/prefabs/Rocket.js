@@ -8,7 +8,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
 
         this.moveSpeed = 3; // Speed 
-        this.setScale(0.2) // Scale 
+        this.setScale(0.5) // Scale 
         this.setSize(this.width * 0.5, this.height * 0.5) // hitbox
         
 
@@ -24,7 +24,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         // Reset if it moves off-screen
         if (this.x < -50) {
-            this.reset();
+            this.destroy();
         }
     }
 

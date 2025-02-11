@@ -13,8 +13,8 @@ reinforced my learning from that.
 
 let config = {
     type: Phaser.AUTO,
-    width: 640,
-    height: 480,
+    width: 720,
+    height: 560,
     physics:{
         default: "arcade",
         arcade: {
