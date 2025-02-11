@@ -60,12 +60,23 @@ class Menu extends Phaser.Scene {
             menuConfig
         ).setOrigin(0.5);
 
+
+
         this.add.text(
             this.sys.game.config.width / 2,
-            this.sys.game.config.height / 1.7,
+            this.sys.game.config.height / 2 + 50,
+            "Dodge the incoming rockets",
+            
+            menuConfig
+        ).setOrigin(0.5);
+
+        this.add.text(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2+ 100,
             "Press ENTER to Start",
             menuConfig
         ).setOrigin(0.5);
+
 
         if (!this.sound.get("bgm")) {
             this.bgm = this.sound.add("bgm", { loop: true, volume: 0.1 }) // Loop the music

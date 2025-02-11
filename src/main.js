@@ -1,7 +1,7 @@
 /*
 William Wu
 Through the Skies
-14.5 hours
+17 hours
 Creative Tilt
 I kinda like my art for the Aircraft that I made, never really drew before 
 so it looked pretty good for that, music I just searched online for free songs and came
@@ -18,7 +18,7 @@ let config = {
     physics:{
         default: "arcade",
         arcade: {
-            deubg: true
+            deubg: false
         }
     },
     scene: [Menu, Play, GameOver, Credits]

@@ -188,7 +188,7 @@ class Play extends Phaser.Scene {
         this.rockets.forEach((rocket) => rocket.destroy());
         this.rockets = [];
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
             let newRocket = new Rocket(this, "rocket")
             newRocket.y = this.getNonOverlappingY()
             

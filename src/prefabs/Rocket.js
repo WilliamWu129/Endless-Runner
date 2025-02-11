@@ -23,7 +23,7 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // Move left across the screen
 
         // Reset if it moves off-screen
-        if (this.x < -50) {
+        if (this.x < -55) {
             this.destroy();
         }
     }
